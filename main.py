@@ -12,8 +12,7 @@ def main():
     disk.keep_partitions = False
 
     with archinstall.Filesystem(disk, archinstall.GPT) as fs:
-        fs.use_entire_disk(root_filesystem_type="btrfs")
-        fs.find_partition("/boot").format("vfat")
+        fs.load_layout(archinstall.select_disk_layout())
 
     with archinstall.Installer("/mnt") as installer:
         installer.add_bootloader(archinstall.ask_for_bootloader())
